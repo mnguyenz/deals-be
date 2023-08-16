@@ -5,6 +5,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import appConfig from '~config/app.config';
 import databaseConfig from '~config/database.config';
+import { SeederModule } from '~seeder/seeder.module';
+import { env } from '~config/env.config';
 
 @Module({
   imports: [
@@ -15,17 +17,17 @@ import databaseConfig from '~config/database.config';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
+      useFactory: () => {
         return {
-          type: configService.get('database.type'),
-          host: configService.get('database.host'),
-          port: configService.get('database.port'),
-          username: configService.get('database.username'),
-          password: configService.get('database.password'),
-          database: configService.get('database.database'),
+          type: env.DATABASE.TYPE,
+          host: env.DATABASE.HOST,
+          port: env.DATABASE.PORT,
+          username: env.DATABASE.USERNAME,
+          password: env.DATABASE.PASSWORD,
+          database: env.DATABASE.DB_NAME,
           entities: [__dirname + './../**/**.entity{.ts,.js}'],
-          synchronize: configService.get('database.synchronize'),
-          autoLoadEntities: configService.get('database.autoLoadEntities'),
+          synchronize: false,
+          autoLoadEntities: false,
           cli: {
             migrationsDir: 'src/migration',
           },
@@ -35,6 +37,7 @@ import databaseConfig from '~config/database.config';
         } as TypeOrmModuleAsyncOptions;
       },
     }),
+    SeederModule,
   ],
   controllers: [AppController],
   providers: [AppService],

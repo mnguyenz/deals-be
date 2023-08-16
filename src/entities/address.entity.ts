@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
-import { Base } from '~core/base-repository/base.entity';
+import { Base } from '~core/base.entity';
 import { DistrictEntity } from './district.entity';
 import { ProvinceEntity } from './province.entity';
 

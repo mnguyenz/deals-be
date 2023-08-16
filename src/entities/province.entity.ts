@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { Base } from '~core/base-repository/base.entity';
+import { Base } from '~core/base.entity';
 import { DistrictEntity } from './district.entity';
 import { AddressEntity } from './address.entity';
 

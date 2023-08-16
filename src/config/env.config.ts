@@ -10,8 +10,11 @@ export const env = {
     TYPE: process.env.DB_TYPE as any,
     HOST: process.env.DB_HOST,
     PORT: Number(process.env.DATABASE_PORT) || 5432,
-    USER: process.env.DB_USERNAME,
+    USERNAME: process.env.DB_USERNAME,
     PASSWORD: process.env.DB_PASSWORD,
-    NAME: process.env.DB_DATABASE,
+    DB_NAME: process.env.DB_DATABASE,
+  },
+  APIS: {
+    PROVINCES_OPEN_API: process.env.PROVINCES_OPEN_API,
   },
 };
