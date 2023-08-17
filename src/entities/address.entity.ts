@@ -17,11 +17,23 @@ export class AddressEntity extends Base {
   })
   street: string;
 
-  @ManyToOne(() => ProvinceEntity, (province) => province.addresses)
-  @JoinColumn({ name: 'provinceId' })
+  @ManyToOne(() => ProvinceEntity, { nullable: true })
+  @JoinColumn()
   province: ProvinceEntity;
 
-  @ManyToOne(() => DistrictEntity, (district) => district.addresses)
-  @JoinColumn({ name: 'districtId' })
+  @Column({
+    type: 'int',
+    nullable: true,
+  })
+  provinceId: number;
+
+  @ManyToOne(() => DistrictEntity, { nullable: true })
+  @JoinColumn()
   district: DistrictEntity;
+
+  @Column({
+    type: 'int',
+    nullable: true,
+  })
+  districtId: number;
 }

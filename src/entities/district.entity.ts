@@ -8,6 +8,7 @@ export class DistrictEntity extends Base {
   @Column({
     type: 'int',
     unique: true,
+    nullable: true,
   })
   code: number;
 
@@ -59,10 +60,18 @@ export class DistrictEntity extends Base {
   })
   withoutAccentsCapitalizePrefix: string;
 
-  @ManyToOne(() => ProvinceEntity, (province) => province.districts)
-  @JoinColumn({ name: 'provinceId' })
+  @ManyToOne(() => ProvinceEntity, { nullable: true })
+  @JoinColumn()
   province: ProvinceEntity;
 
-  @OneToMany(() => AddressEntity, (address) => address.district)
+  @Column({
+    type: 'int',
+    nullable: true,
+  })
+  provinceId: number;
+
+  @OneToMany(() => AddressEntity, (address) => address.district, {
+    nullable: true,
+  })
   addresses: AddressEntity[];
 }

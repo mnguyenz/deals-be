@@ -4,21 +4,21 @@ import { writeFileSync } from 'fs';
 import { env } from '~config/env.config';
 
 @Injectable()
-export class ExportProvincesService {
-  async exportProvinces(): Promise<string> {
+export class ExportDistrictsService {
+  async exportDistricts(): Promise<string> {
     let exportData = '';
     try {
-      const provincesData = await axios.get(
-        `${env.APIS.PROVINCES_OPEN_API}/p/`,
+      const districtsData = await axios.get(
+        `${env.APIS.PROVINCES_OPEN_API}/d/`,
       );
-      Object.keys(provincesData.data[0]).forEach((value, index) => {
+      Object.keys(districtsData.data[0]).forEach((value, index) => {
         if (index !== 0) {
           exportData += ',';
         }
         exportData += value;
       });
       exportData += '\n';
-      provincesData.data.forEach((value) => {
+      districtsData.data.forEach((value) => {
         Object.values(value).forEach((value, index) => {
           if (index !== 0) {
             exportData += ',';
@@ -32,10 +32,10 @@ export class ExportProvincesService {
     }
 
     try {
-      await writeFileSync(`src/seeder/data/provinces.csv`, exportData, 'utf8');
-      return 'Provinces Data Exported';
+      await writeFileSync(`src/seeder/data/districts.csv`, exportData, 'utf8');
+      return 'Districts Data Exported';
     } catch (err) {
-      return `Error Export csv seed Province: ${err}`;
+      return `Error Export csv seed District: ${err}`;
     }
   }
 }

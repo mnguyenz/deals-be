@@ -59,9 +59,13 @@ export class ProvinceEntity extends Base {
   })
   withoutAccentsCapitalizePrefix: string;
 
-  @OneToMany(() => DistrictEntity, (district) => district.province)
+  @OneToMany(() => DistrictEntity, (district) => district.province, {
+    nullable: true,
+  })
   districts: DistrictEntity[];
 
-  @OneToMany(() => AddressEntity, (address) => address.province)
+  @OneToMany(() => AddressEntity, (address) => address.province, {
+    nullable: true,
+  })
   addresses: AddressEntity[];
 }

@@ -1,14 +1,14 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class Address1692163059124 implements MigrationInterface {
-  name = 'Address1692163059124';
+export class Address1692294179362 implements MigrationInterface {
+  name = 'Address1692294179362';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
       `CREATE TABLE "Provinces" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "updatedAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "deteledAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "revision" integer NOT NULL, "code" integer NOT NULL, "vietName" character varying NOT NULL, "vietCapitalizeName" character varying NOT NULL, "withoutAccentsName" character varying NOT NULL, "withoutAccentsCapitalizeName" character varying NOT NULL, "vietPrefix" character varying, "vietCapitalizePrefix" character varying, "withoutAccentsPrefix" character varying NOT NULL, "withoutAccentsCapitalizePrefix" character varying NOT NULL, CONSTRAINT "UQ_060f11ff676c172eae9ec791d0f" UNIQUE ("code"), CONSTRAINT "PK_8b487d80d948fe12b87ba7bf4bb" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "Districts" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "updatedAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "deteledAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "revision" integer NOT NULL, "code" integer NOT NULL, "vietName" character varying NOT NULL, "vietCapitalizeName" character varying NOT NULL, "withoutAccentsName" character varying NOT NULL, "withoutAccentsCapitalizeName" character varying NOT NULL, "vietPrefix" character varying, "vietCapitalizePrefix" character varying, "withoutAccentsPrefix" character varying NOT NULL, "withoutAccentsCapitalizePrefix" character varying NOT NULL, "provinceId" integer, CONSTRAINT "UQ_611e02b933c8e77f87ac0043ce2" UNIQUE ("code"), CONSTRAINT "PK_7b373d1b7b5b7c89515ce0de853" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "Districts" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "updatedAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "deteledAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "revision" integer NOT NULL, "code" integer, "vietName" character varying NOT NULL, "vietCapitalizeName" character varying NOT NULL, "withoutAccentsName" character varying NOT NULL, "withoutAccentsCapitalizeName" character varying NOT NULL, "vietPrefix" character varying, "vietCapitalizePrefix" character varying, "withoutAccentsPrefix" character varying NOT NULL, "withoutAccentsCapitalizePrefix" character varying NOT NULL, "provinceId" integer, CONSTRAINT "UQ_611e02b933c8e77f87ac0043ce2" UNIQUE ("code"), CONSTRAINT "PK_7b373d1b7b5b7c89515ce0de853" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "Addresses" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "updatedAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "deteledAt" TIMESTAMP DEFAULT ('now'::text)::timestamp(6) with time zone, "revision" integer NOT NULL, "raw" text, "street" character varying, "provinceId" integer, "districtId" integer, CONSTRAINT "PK_239c81748e5a62ac7223a7350c5" PRIMARY KEY ("id"))`,

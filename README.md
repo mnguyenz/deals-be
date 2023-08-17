@@ -4,11 +4,13 @@
 To generate database
 
 ```bash
-yarn typeorm:generate --name=address
+npm run typeorm:generate --name=address
 ```
 
 To run migration database
 
 ```bash
-yarn typeorm:run
+npm run typeorm:run
 ```
+
+**Warning:** Only use `npm run`, not `yarn`
