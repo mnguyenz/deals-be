@@ -7,6 +7,8 @@ import { DataSource } from 'typeorm';
 import { ProvinceEntity } from '~entities/province.entity';
 import { DistrictEntity } from '~entities/district.entity';
 import { csvDistrictType } from '~common/types/districts.type';
+import { ProvinceType } from '~common/enums/provinces.enum';
+import { DistrictType } from '~common/enums/districts.enum';
 
 export default class SeederProvincesAndDistricts implements Seeder {
   public async run(factory: Factory, dataSource: DataSource): Promise<void> {
@@ -47,92 +49,54 @@ export default class SeederProvincesAndDistricts implements Seeder {
   private async mapProvinceData(
     province: csvProvinceType,
   ): Promise<Partial<ProvinceEntity>> {
-    let vietName = '';
-    let vietCapitalizeName = '';
-    let withoutAccentsName = '';
-    let withoutAccentsCapitalizeName = '';
-    let vietPrefix = '';
-    let vietCapitalizePrefix = '';
-    let withoutAccentsPrefix = '';
-    let withoutAccentsCapitalizePrefix = '';
+    let name = '';
+    let prefix = '';
 
-    if (province.name.toUpperCase().includes('TỈNH')) {
-      vietName = province.name.slice(5);
-      vietPrefix = 'Tỉnh';
+    if (province.name.includes(ProvinceType.TINH)) {
+      name = province.name.slice(5);
+      prefix = ProvinceType.TINH;
     } else {
-      vietName = province.name.slice(10);
-      vietPrefix = 'Thành Phố';
+      name = province.name.slice(10);
+      prefix = ProvinceType.THANH_PHO;
     }
-    vietCapitalizeName = vietName.toUpperCase();
-    withoutAccentsName = removeVietnameseTones(vietName);
-    withoutAccentsCapitalizeName = removeVietnameseTones(vietCapitalizeName);
-    vietCapitalizePrefix = vietPrefix.toUpperCase();
-    withoutAccentsPrefix = removeVietnameseTones(vietPrefix);
-    withoutAccentsCapitalizePrefix =
-      removeVietnameseTones(vietCapitalizePrefix);
     return {
       code: +province.code,
-      vietName,
-      vietCapitalizeName,
-      withoutAccentsName,
-      withoutAccentsCapitalizeName,
-      vietPrefix,
-      vietCapitalizePrefix,
-      withoutAccentsPrefix,
-      withoutAccentsCapitalizePrefix,
+      fullName: province.name,
+      name,
+      prefix,
     };
   }
 
   private async mapDistrictData(
     district: csvDistrictType,
   ): Promise<Partial<DistrictEntity>> {
-    let vietName = '';
-    let vietCapitalizeName = '';
-    let withoutAccentsName = '';
-    let withoutAccentsCapitalizeName = '';
-    let vietPrefix = '';
-    let vietCapitalizePrefix = '';
-    let withoutAccentsPrefix = '';
-    let withoutAccentsCapitalizePrefix = '';
+    let name = '';
+    let prefix = '';
 
     if (!/\d/.test(district.name)) {
-      if (district.name.toUpperCase().includes('QUẬN'.toUpperCase())) {
-        vietName = district.name.slice(5);
-        vietPrefix = 'Quận';
-      } else if (district.name.toUpperCase().includes('HUYỆN'.toUpperCase())) {
-        vietName = district.name.slice(6);
-        vietPrefix = 'Huyện';
-      } else if (district.name.toUpperCase().includes('THỊ XÃ'.toUpperCase())) {
-        vietName = district.name.slice(7);
-        vietPrefix = 'Thị Xã';
-      } else if (
-        district.name.toUpperCase().includes('THÀNH PHỐ'.toUpperCase())
-      ) {
-        vietName = district.name.slice(10);
-        vietPrefix = 'Thành Phố';
+      if (district.name.includes(DistrictType.QUAN)) {
+        name = district.name.slice(5);
+        prefix = DistrictType.QUAN;
+      } else if (district.name.includes(DistrictType.HUYEN)) {
+        name = district.name.slice(6);
+        prefix = DistrictType.HUYEN;
+      } else if (district.name.includes(DistrictType.THI_XA)) {
+        name = district.name.slice(7);
+        prefix = DistrictType.THI_XA;
+      } else if (district.name.includes(DistrictType.THANH_PHO)) {
+        name = district.name.slice(10);
+        prefix = DistrictType.THANH_PHO;
       }
     } else {
-      vietName = district.name;
-      vietPrefix = 'Quận';
+      name = district.name;
+      prefix = DistrictType.QUAN;
     }
-    vietCapitalizeName = vietName.toUpperCase();
-    withoutAccentsName = removeVietnameseTones(vietName);
-    withoutAccentsCapitalizeName = removeVietnameseTones(vietCapitalizeName);
-    vietCapitalizePrefix = vietPrefix.toUpperCase();
-    withoutAccentsPrefix = removeVietnameseTones(vietPrefix);
-    withoutAccentsCapitalizePrefix =
-      removeVietnameseTones(vietCapitalizePrefix);
 
     return {
       code: +district.code,
-      vietName,
-      vietCapitalizeName,
-      withoutAccentsName,
-      withoutAccentsCapitalizeName,
-      vietPrefix,
-      vietCapitalizePrefix,
-      withoutAccentsPrefix,
-      withoutAccentsCapitalizePrefix,
+      fullName: district.name,
+      name,
+      prefix,
     };
   }
 }

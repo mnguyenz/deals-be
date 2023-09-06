@@ -14,29 +14,24 @@ export class Base extends BaseEntity {
 
   @CreateDateColumn({
     type: 'timestamp',
-    nullable: true,
     transformer: new TimestampTransformer(),
-    default: () => 'CURRENT_TIMESTAMP(6)',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  public createdAt: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
-    nullable: true,
     transformer: new TimestampTransformer(),
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
   })
-  public updatedAt: Date;
+  updatedAt: Date;
 
   @DeleteDateColumn({
     type: 'timestamp',
-    nullable: true,
     transformer: new TimestampTransformer(),
-    default: () => 'CURRENT_TIMESTAMP(6)',
-    onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  public deteledAt: Date;
+  deteledAt: Date;
 
   @VersionColumn() revision: number;
 }
