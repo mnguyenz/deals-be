@@ -14,6 +14,12 @@ export const env = {
     PASSWORD: process.env.DB_PASSWORD,
     DB_NAME: process.env.DB_DATABASE,
   },
+  AWS: {
+    ACCESS_KEY: process.env.AWS_ACCESS_KEY,
+    SECRET_KEY: process.env.AWS_SECRET_KEY,
+    REGION: process.env.AWS_REGION,
+    BUCKET_NAME: process.env.AWS_BUCKET_NAME,
+  },
   APIS: {
     PROVINCES_OPEN_API: process.env.PROVINCES_OPEN_API,
   },

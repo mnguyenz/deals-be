@@ -9,6 +9,8 @@ import { env } from '~config/env.config';
 import { ProvinceModule } from '~provinces/province.module';
 import { DistrictModule } from '~districts/district.module';
 import { BrandModule } from '~brands/brand.module';
+import { FlyerModule } from '~flyers/flyer.module';
+import { S3Module } from '~s3/s3.module';
 
 @Module({
   imports: [
@@ -43,6 +45,8 @@ import { BrandModule } from '~brands/brand.module';
     ProvinceModule,
     DistrictModule,
     BrandModule,
+    FlyerModule,
+    S3Module,
   ],
   controllers: [AppController],
   providers: [AppService],
